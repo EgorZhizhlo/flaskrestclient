@@ -1,0 +1,74 @@
+{% extends 'main.html' %}
+{% block menu %}
+    {% if username != None %}
+        <h1 style="color: black; text-align: center; font-size: 40px; margin-top: 1%; "><b>CREATE POST</b></h1>
+        <div class="container-sm" style="margin-top: 1%; margin-bottom: 1%">
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="bg-image card shadow-1-strong"
+                         style="border-radius: 30px; border-width: 10px; border-color: black;background: #181a1e">
+                        <center>
+                            <div class="card-body" align="justify">
+                                <form method="post" action="postrequest">
+                                    <div class="mb-3">
+                                        <label for="1" class="form-label" style="color: wheat">
+                                            <h1>
+                                                <b>
+                                                    Название поста:
+                                                </b>
+                                            </h1>
+                                        </label>
+                                        <input type="text" name="title" maxlength="100" class="form-control" id="1"
+                                               style="background: #2a2e34; border-color: black;
+                                            border-width: 6px; border-radius: 10px; font-size: 24px; color: wheat">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="2" class="form-label" style="color: wheat">
+                                            <h1>
+                                                <b>
+                                                    Текст:
+                                                </b>
+                                            </h1>
+                                        </label>
+                                        <input type="text" name="text" maxlength="1000" class="form-control" id="2"
+                                               style="background: #2a2e34; border-color: black;
+                                           border-width: 6px; border-radius: 10px; font-size: 24px; color: wheat">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"
+                                            style="background: #28292d; color: deepskyblue; border-color: black;
+                                         border-radius: 20px; border-width: 5px">
+                                        <h4>
+                                            Создать пост
+                                        </h4>
+                                    </button>
+                                </form>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center style="margin-top: 1%; margin-bottom: 2%">
+            <a class="navbar-brand" href="/" style="color: black">
+                <button type="button" class="btn btn-primary"
+                        style="background: #28292d; color: deepskyblue; border-color: black;
+                                         border-radius: 10px; border-width: 4px">
+                    <h5>Назад</h5>
+                </button>
+            </a>
+        </center>
+    {% else %}
+        <h1 style="color: black; text-align: center; font-size: 40px; margin-top: 1%; ">
+            <b>Вы не авторизованы!</b>
+        </h1>
+        <center style="margin-top: 1%; margin-bottom: 2%">
+            <a class="navbar-brand" href="/" style="color: black">
+                <button type="button" class="btn btn-primary"
+                        style="background: #28292d; color: deepskyblue; border-color: black;
+                                         border-radius: 10px; border-width: 4px">
+                    <h5>Назад</h5>
+                </button>
+            </a>
+        </center>
+    {% endif %}
+{% endblock menu %}

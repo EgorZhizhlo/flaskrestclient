@@ -1,0 +1,57 @@
+{% extends "main.html" %}
+{% block menu %}
+    {% if post | length != 0 %}
+        <h1 style="color: black; text-align: center; font-size: 40px; margin-top: 1%"><b>ABOUT POST {{ post[0].id }}</b>
+        </h1>
+        <div class="container-sm" style="margin-top: 1%; margin-bottom: 1%">
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="bg-image card shadow-1-strong"
+                         style="border-radius: 30px;border-width: 10px;border-color: black;background: #181a1e">
+                        <div class="card-body" align="justify">
+                            <h1 style="color: wheat"><b>{{ post[0].title }}</b></h1>
+                            <hr style="color: #d1dfff; border-width: 6px;">
+                            <h2 style="color: wheat"> {{ post[0].text }}</h2>
+                            <h5 style="color: wheat"> {{ post[0].author }}</h5>
+                            <h5 align="right" style="color: #e7a933"> {{ post[0].datetime }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center style="margin-top: 1%; margin-bottom: 2%">
+            <a class="navbar-brand" href="/" style="color: black">
+                <button type="button" class="btn btn-primary"
+                        style="background: #28292d; color: deepskyblue; border-color: black;
+                                         border-radius: 10px; border-width: 4px">
+                    <h5>Назад</h5>
+                </button>
+            </a>
+        </center>
+    {% else %}
+        <h1 style="color: black; text-align: center; font-size: 40px; margin-top: 1%">
+            <b>ABOUT POST {{ post.id }}</b>
+        </h1>
+        <div class="container-sm" style="margin-top: 1%; margin-bottom: 1%">
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="bg-image card shadow-1-strong"
+                         style="border-radius: 30px; border-width: 10px; border-color: black;background: #181a1e">
+                        <div class="card-body" align="justify">
+                            <h1 style="color: wheat"> Пост с таким id не существует</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center style="margin-top: 1%; margin-bottom: 2%">
+            <a class="navbar-brand" href="/" style="color: black">
+                <button type="button" class="btn btn-primary"
+                        style="background: #28292d; color: deepskyblue; border-color: black;
+                                         border-radius: 10px; border-width: 4px">
+                    <h5>Назад</h5>
+                </button>
+            </a>
+        </center>
+    {% endif %}
+{% endblock menu %}
