@@ -16,6 +16,15 @@ CgFuhy@g9XBc"""
 @app.route('/', methods=['GET', 'POST'])
 async def home():
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.get("/", json=({
             'operation_key': generate_password_hash(o_key),
         })) as rsp, s.get("/login/checkstatus/", json=({
@@ -36,6 +45,15 @@ async def home():
 @app.route('/about/', methods=['GET'])
 async def about():
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.get("/about/", json=({
             'operation_key': generate_password_hash(o_key),
         })) as rsp, s.get("/login/checkstatus/", json=({
@@ -53,6 +71,15 @@ async def about():
 @app.route('/aboutpost/<int:post_id>/', methods=['GET'])
 async def about_post(post_id):
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.get(f"/aboutpost/{post_id}/", json=({
             'operation_key': generate_password_hash(o_key),
         })) as rsp, s.get("/login/checkstatus/", json=({
@@ -118,7 +145,7 @@ async def registration():
             }
         })) as rsp2:
             rsp, rsp2 = eval(await rsp.text()), eval(await rsp2.text())
-            if rsp and 'data' in rsp and 'id' in rsp:
+            if rsp and 'data' in rsp and 'id' in rsp and 'username' in rsp and 'email' in rsp:
                 if rsp['id'] == 1:
                     session['email'] = rsp['email']
                     session['username'] = rsp['username']
@@ -139,6 +166,15 @@ async def logout():
 @app.route('/createpost/', methods=['GET'])
 async def create_post():
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.get("/login/checkstatus/", json=({
             'operation_key': generate_password_hash(o_key),
             'user': {
@@ -157,6 +193,15 @@ async def create_post_postr():
     title = request.form.get('title')
     text = request.form.get('text')
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.post("/createpost/", json=({
             'operation_key': generate_password_hash(o_key),
             'email': session.get('email'),
@@ -185,6 +230,15 @@ async def create_post_postr():
 async def search():
     search = '%{}%'.format(request.args.get('search'))
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.post("/search/", json=({
             'operation_key': generate_password_hash(o_key),
             'search': search
@@ -205,6 +259,15 @@ async def search():
 @app.route('/adminpanel/', methods=['GET'])
 async def adminpanel():
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.get("/login/checkstatus/", json=({
             'operation_key': generate_password_hash(o_key),
             'user': {
@@ -220,6 +283,15 @@ async def adminpanel():
 @app.route('/adminpanel/posts/', methods=['GET', 'POST'])
 async def adminpanel_posts():
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.get("/", json=({
             'operation_key': generate_password_hash(o_key),
         })) as rsp, s.get("/login/checkstatus/", json=({
@@ -243,6 +315,15 @@ async def adminpanel_posts():
 @app.route('/adminpanel/users/', methods=['GET', 'POST'])
 async def adminpanel_users():
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.get("/adminpanel/users/", json=({
             'operation_key': generate_password_hash(o_key),
         })) as rsp, s.get("/login/checkstatus/", json=({
@@ -263,6 +344,15 @@ async def adminpanel_users():
 @app.route('/adminpanel/<string:operation>/<int:op_id>/', methods=['GET', 'POST'])
 async def adminpanel_operation(operation, op_id):
     async with aiohttp.ClientSession(serverURL) as s:
+        if session.get('email') is not None and session.get('username') is not None:
+            async with s.post("/finduser/", json=({
+                'operation_key': generate_password_hash(o_key),
+                'email': session.get('email'),
+                'username': session.get('username')
+            })) as rsp3:
+                rsp3 = eval(await rsp3.text())
+                if rsp3['data'] == 0:
+                    return redirect(url_for('logout'))
         async with s.get("/login/checkstatus/", json=({
             'operation_key': generate_password_hash(o_key),
             'user': {
@@ -276,16 +366,13 @@ async def adminpanel_operation(operation, op_id):
                     'operation': operation,
                     'id': op_id,
                     'text': request.form.get('input')
-                })):
-                    pass
-                async with s.post("/finduser/", json=({
-                    'operation_key': generate_password_hash(o_key),
-                    'email': session.get('email'),
-                    'username': session.get('username')
-                })) as rsp3:
-                    rsp3 = eval(await rsp3.text())
-                    if rsp3['data'] == 0:
-                        return redirect(url_for('logout'))
+                })) as r:
+                    r = eval(await r.text())
+                    if r and 'id' in r:
+                        if r['id'] == 'post':
+                            return redirect(url_for('adminpanel_posts'))
+                        else:
+                            return redirect(url_for('adminpanel_users'))
             return redirect(url_for('adminpanel'))
 
 

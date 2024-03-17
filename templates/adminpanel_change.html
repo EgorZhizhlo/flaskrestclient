@@ -1,4 +1,5 @@
-<div class="modal fade" id="changeModalTitle" tabindex="-1" aria-labelledby=loggModalLabel" aria-hidden="true">
+<div class="modal fade" id="changeModalTitle{{ post.id }}" tabindex="-1" aria-labelledby=loggModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="background: #323638; color: #e7a933; border-radius: 10px;">
             <form method="post" action="/adminpanel/changetitle/{{ post.id }}/">
@@ -33,7 +34,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="changeModalAuthor" tabindex="-1" aria-labelledby=loggModalLabel" aria-hidden="true">
+<div class="modal fade" id="changeModalAuthor{{ post.id }}" tabindex="-1" aria-labelledby=loggModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="background: #323638; color: #e7a933; border-radius: 10px;">
             <form method="post" action="/adminpanel/changeauthor/{{ post.id }}/ ">
@@ -73,7 +75,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="changeModalText" tabindex="-1" aria-labelledby=loggModalLabel" aria-hidden="true">
+<div class="modal fade" id="changeModalText{{ post.id }}" tabindex="-1" aria-labelledby=loggModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="background: #323638; color: #e7a933; border-radius: 10px;">
             <form method="post" action="/adminpanel/changetext/{{ post.id }}/">

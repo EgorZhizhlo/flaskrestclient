@@ -22,7 +22,7 @@
                                         <b>{{ 'YES' if user.admin == 1 else 'NO' }}</b></h5>
                                     {% include 'adminpanel_changeu.html' %}
                                     <center>
-                                        <a class="navbar-brand" style="color: #e0b866" href="#changeModalUsername"
+                                        <a class="navbar-brand" style="color: #e0b866" href="#changeModalUsername{{ user.id }}"
                                            data-bs-toggle="modal">
                                             <button type="button" class="btn btn-primary"
                                                     style="background: #28292d; color: deepskyblue; border-color: black;

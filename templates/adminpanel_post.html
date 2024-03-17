@@ -22,7 +22,7 @@
                                 <h5 align="right" style="color: #e7a933"> Дата создания: {{ post.datetime }}</h5>
                                 {% include 'adminpanel_change.html' %}
                                 <center>
-                                    <a class="navbar-brand" style="color: #e0b866" href="#changeModalTitle"
+                                    <a class="navbar-brand" style="color: #e0b866" href="#changeModalTitle{{ post.id }}"
                                        data-bs-toggle="modal">
                                         <button type="button" class="btn btn-primary"
                                                 style="background: #28292d; color: deepskyblue; border-color: black;
@@ -30,7 +30,8 @@
                                             <h5><b>Change title</b></h5>
                                         </button>
                                     </a>
-                                    <a class="navbar-brand" style="color: #e0b866" href="#changeModalAuthor"
+                                    <a class="navbar-brand" style="color: #e0b866"
+                                       href="#changeModalAuthor{{ post.id }}"
                                        data-bs-toggle="modal">
                                         <button type="button" class="btn btn-primary"
                                                 style="background: #28292d; color: deepskyblue; border-color: black;
@@ -38,7 +39,7 @@
                                             <h5><b>Change author</b></h5>
                                         </button>
                                     </a>
-                                    <a class="navbar-brand" style="color: #e0b866" href="#changeModalText"
+                                    <a class="navbar-brand" style="color: #e0b866" href="#changeModalText{{ post.id }}"
                                        data-bs-toggle="modal">
                                         <button type="button" class="btn btn-primary"
                                                 style="background: #28292d; color: deepskyblue; border-color: black;
@@ -46,7 +47,8 @@
                                             <h5><b>Change text</b></h5>
                                         </button>
                                     </a>
-                                    <a class="navbar-brand" href="/adminpanel/deletepost/{{ post.id }}/" style="color: black">
+                                    <a class="navbar-brand" href="/adminpanel/deletepost/{{ post.id }}/"
+                                       style="color: black">
                                         <button type="button" class="btn btn-primary"
                                                 style="background: #28292d; color: deepskyblue; border-color: black;
                                          border-radius: 10px; border-width: 4px">
