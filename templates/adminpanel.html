@@ -3,15 +3,15 @@
     <center>
         {% if admin == 1 %}
             <h1 style="color: black; text-align: center; font-size: 40px; margin-top: 5%;"><b>ПАНЕЛЬ АДМИНИСТРАТОРА</b></h1>
-            <a href="/postscontrol/" class="btn"
+            <a href="posts/" class="btn"
                style="color: #eeff00; background: black; margin-top: 3%; margin-right: 2%"><h3>Записи</h3></a>
-            <a href="/userscontrol/" class="btn"
+            <a href="users/" class="btn"
                style="color: #eeff00; background: black; margin-top: 3%;"><h3>Пользователи</h3></a>
             <div style="margin-top: 3%">
                 <a href="/" class="btn" style="color: #eeff00; background: black;"><h3>Главная страница</h3></a>
             </div>
         {% else %}
-            <h1 style="margin-top: 15%; color: #d1dfff">ВЫ НЕ АДМИНИСТРАТОР</h1>
+            <h1 style="margin-top: 15%; color: black"><b>ВЫ НЕ АДМИНИСТРАТОР</b></h1>
             <a href="/" class="btn" style="color: #eeff00; background: black; margin-top: 10%"><h3>Главная
                 страница</h3></a>
         {% endif %}

@@ -72,90 +72,92 @@
                                     </li>
                                 </ul>
                             </li>
+                        {% else %}
+                            <a class="navbar-brand" style="color: #e0b866; margin-top: 1%" href="#logModal"
+                               data-bs-toggle="modal">
+                                <h5><b>Войти</b></h5>
+                            </a>
+                            <a class="navbar-brand" style="color: #e0b866; margin-top: 1%" href="#regModal"
+                               data-bs-toggle="modal">
+                                <h5><b>Зарегистрироваться</b></h5>
+                            </a>
                         {% endif %}
+                        <div id="google_translate_element" style="margin-top: 1%; margin-bottom: 1%"></div>
+
+                        <script type="text/javascript">
+                            function googleTranslateElementInit() {
+                                new google.translate.TranslateElement({
+                                    pageLanguage: 'ru',
+                                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                                }, 'google_translate_element');
+                            }
+                        </script>
+
+                        <script type="text/javascript"
+                                src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+                        </script>
                     </ul>
                 </div>
-                <div id="google_translate_element"></div>
-
-                <script type="text/javascript">
-                    function googleTranslateElementInit() {
-                        new google.translate.TranslateElement({
-                            pageLanguage: 'ru',
-                            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                        }, 'google_translate_element');
-                    }
-                </script>
-
-                <script type="text/javascript"
-                        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
-                </script>
                 <form class="d-flex" action="/search/" method="get" style="margin-left: 1%; margin-right: 1%">
                     <input class="form-control me-2" type="search" placeholder="Поиск..."
                            aria-label="Search" name="search" style="background: wheat; color: #1e1f22">
                     <button class="btn btn-outline-secondary" type="submit">Поиск</button>
                 </form>
-                {% if username == None %}
-                    <a class="navbar-brand" style="color: #e0b866" href="#logModal"
-                       data-bs-toggle="modal">
-                        <h5><b>Войти</b></h5>
-                    </a>
-                    <a class="navbar-brand" style="color: #e0b866" href="#regModal"
-                       data-bs-toggle="modal">
-                        <h5><b>Зарегистрироваться</b></h5>
-                    </a>
-                {% endif %}
             </div>
         </nav>
     </header>
 {% endblock navbar %}
-{% block menu %}
-    <h1 style="color: black; text-align: center; font-size: 40px; margin-top: 1%; "><b>POSTS</b></h1>
-    {% for post in posts[(page-1) * 10: page * 10] %}
-        <div class="container-sm" style="margin-top: 1%; margin-bottom: 1%">
-            <div class="row align-items-start">
-                <div class="col">
-                    <div class="bg-image card shadow-1-strong"
-                         style="border-radius: 30px; border-width: 10px; border-color: black;background: #181a1e">
-                        <div class="card-body" align="justify">
-                            <h1 style="color: wheat"><b>{{ post.title }}</b></h1>
-                            <hr style="color: #d1dfff; border-width: 6px;">
-                            <h2 style="color: wheat"> {{ post.text }}</h2>
-                            <h5 style="color: wheat"> {{ post.author }}</h5>
-                            <h5 align="right" style="color: #e7a933"> {{ post.datetime }}</h5>
-                            <a class="navbar-brand" href="/aboutpost/{{ post.id }}/" style="color: black">
-                                <button type="button" class="btn btn-primary"
-                                        style="background: #28292d; color: deepskyblue; border-color: black;
+<div>
+    {% block menu %}
+        <h1 style="color: black; text-align: center; font-size: 40px; margin-top: 1%; margin-bottom: 1%"><b>POSTS</b>
+        </h1>
+        {% for post in posts[(page-1) * 10: page * 10] %}
+            <div class="container-sm" style="margin-top: 1%; margin-bottom: 1%">
+                <div class="row align-items-start">
+                    <div class="col">
+                        <div class="bg-image card shadow-1-strong"
+                             style="border-radius: 30px; border-width: 10px; border-color: black;background: #181a1e">
+                            <div class="card-body" align="justify">
+                                <h1 style="color: wheat"><b>{{ post.title }}</b></h1>
+                                <hr style="color: #d1dfff; border-width: 6px;">
+                                <h2 style="color: wheat"> {{ post.text }}</h2>
+                                <h5 style="color: wheat"> Автор поста: {{ post.author }}</h5>
+                                <h5 align="right" style="color: #e7a933"> Дата создания: {{ post.datetime }}</h5>
+                                <a class="navbar-brand" href="/aboutpost/{{ post.id }}/" style="color: black">
+                                    <button type="button" class="btn btn-primary"
+                                            style="background: #28292d; color: deepskyblue; border-color: black;
                                          border-radius: 10px; border-width: 4px">
-                                    <h5>Подробнее</h5>
-                                </button>
-                            </a>
+                                        <h5>Подробнее</h5>
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-    <center style="margin-bottom: 2%">
-        {% for i in range(1, (posts|length // 10 if posts|length // 10 == posts|length / 10 else posts|length // 10 + 1) + 1) %}
-            {% if page == i %}
-                <a class="navbar-brand" style="color: black">
-                    <button disabled type="button" class="btn btn-primary"
-                            style="background: #28292d; color: yellow; border-color: black;
-                                         border-radius: 10px; border-width: 4px">
-                        <h5>{{ i }}</h5>
-                    </button>
-                </a>
-            {% else %}
-                <a class="navbar-brand" href="?page={{ i }}" style="color: black">
-                    <button type="button" class="btn btn-primary"
-                            style="background: #28292d; color: deepskyblue; border-color: black;
-                                         border-radius: 10px; border-width: 4px">
-                        <h5>{{ i }}</h5>
-                    </button>
-                </a>
-            {% endif %}
         {% endfor %}
-    </center>
-{% endblock menu %}
+        <center style="margin-bottom: 2%">
+            {% for i in range(1, (posts|length // 10 if posts|length // 10 == posts|length / 10 else posts|length // 10 + 1) + 1) %}
+                {% if page == i %}
+                    <a class="navbar-brand" style="color: black">
+                        <button disabled type="button" class="btn btn-primary"
+                                style="background: #28292d; color: yellow; border-color: black;
+                                         border-radius: 10px; border-width: 4px">
+                            <h5>{{ i }}</h5>
+                        </button>
+                    </a>
+                {% else %}
+                    <a class="navbar-brand" href="?page={{ i }}" style="color: black">
+                        <button type="button" class="btn btn-primary"
+                                style="background: #28292d; color: deepskyblue; border-color: black;
+                                         border-radius: 10px; border-width: 4px">
+                            <h5>{{ i }}</h5>
+                        </button>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </center>
+    {% endblock menu %}
+</div>
 </body>
 </html>

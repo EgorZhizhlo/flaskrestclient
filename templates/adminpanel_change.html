@@ -1,0 +1,110 @@
+<div class="modal fade" id="changeModalTitle" tabindex="-1" aria-labelledby=loggModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background: #323638; color: #e7a933; border-radius: 10px;">
+            <form method="post" action="/adminpanel/changetitle/{{ post.id }}/">
+                <center>
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="changeModalTitleLabel">CHANGE TITLE</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </center>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="1" class="form-label" style="color: wheat">
+                            <h3>
+                                <b>
+                                    New title:
+                                </b>
+                            </h3>
+                        </label>
+                        <input type="text" name="input" maxlength="100" class="form-control" id="1"
+                               style="background: #2a2e34; border-color: black;
+                                            border-width: 6px; border-radius: 10px; font-size: 24px; color: wheat">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="background: #d1dfff; color: #323638" class="btn btn-primary">
+                        <h5>
+                            Изменить
+                        </h5>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changeModalAuthor" tabindex="-1" aria-labelledby=loggModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background: #323638; color: #e7a933; border-radius: 10px;">
+            <form method="post" action="/adminpanel/changeauthor/{{ post.id }}/ ">
+                <center>
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="changeModalAuthorLabel">CHANGE AUTHOR</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </center>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h3>
+                            <label for="input" class="form-label" style="color: wheat">
+                                <h3>
+                                    <b>
+                                        New author:
+                                    </b>
+                                </h3>
+                            </label>
+                            <select name="input" style="background: #b1bcbe; color: black; border-radius: 10px;">
+                                <option value="{">Выбери автора поста...</option>
+                                {% for username in usernames %}
+                                    <option value="{{ username }}">{{ username }}</option>
+                                {% endfor %}
+                            </select>
+                        </h3>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="background: #d1dfff; color: #323638" class="btn btn-primary">
+                        <h5>
+                            Изменить
+                        </h5>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changeModalText" tabindex="-1" aria-labelledby=loggModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background: #323638; color: #e7a933; border-radius: 10px;">
+            <form method="post" action="/adminpanel/changetext/{{ post.id }}/">
+                <center>
+                    <div class="modal-header">
+                        <h1 class="modal-title" id="changeModalAuthorLabel">CHANGE TEXT</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </center>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="1" class="form-label" style="color: wheat">
+                            <h3>
+                                <b>
+                                    New text:
+                                </b>
+                            </h3>
+                        </label>
+                        <input type="text" name="input" maxlength="1000" class="form-control" id="1"
+                               style="background: #2a2e34; border-color: black;
+                                            border-width: 6px; border-radius: 10px; font-size: 24px; color: wheat">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="background: #d1dfff; color: #323638" class="btn btn-primary">
+                        <h5>
+                            Изменить
+                        </h5>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

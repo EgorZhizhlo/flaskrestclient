@@ -29,7 +29,7 @@ async def home():
                                    posts=rsp,
                                    email=session.get('email'),
                                    username=session.get('username'),
-                                   admin=rsp2['data'] if rsp2['data'] is not None else 0
+                                   admin=rsp2['data']
                                    )
 
 
@@ -47,7 +47,7 @@ async def about():
             rsp, rsp2 = eval(await rsp.text()), eval(await rsp2.text())
             return render_template('about.html', info=rsp, email=session.get('email'),
                                    username=session.get('username'),
-                                   admin=rsp2['data'] if rsp2['data'] is not None else 0)
+                                   admin=rsp2['data'])
 
 
 @app.route('/aboutpost/<int:post_id>/', methods=['GET'])
@@ -64,7 +64,7 @@ async def about_post(post_id):
             rsp, rsp2 = eval(await rsp.text()), eval(await rsp2.text())
             return render_template('aboutpost.html', post=rsp, email=session.get('email'),
                                    username=session.get('username'),
-                                   admin=rsp2['data'] if rsp2['data'] is not None else 0)
+                                   admin=rsp2['data'])
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -89,9 +89,11 @@ async def login():
                 session['email'] = rsp['email']
                 session['username'] = rsp['username']
                 return render_template("message.html", message=rsp['data'],
-                                       email=rsp['email'], username=rsp['username'],
-                                       admin=rsp2['data'] if rsp2['data'] is not None else 0)
-            return render_template("message.html", message=rsp['data'], username=None, admin=0)
+                                       email=session.get('email'),
+                                       username=session.get('username'),
+                                       admin=rsp2['data'])
+            return render_template("message.html", message=rsp['data'],
+                                   username=None, email=None, admin=0)
 
 
 @app.route('/registration/', methods=['GET', 'POST'])
@@ -122,13 +124,13 @@ async def registration():
                     session['username'] = rsp['username']
                 return render_template("message.html", message=rsp['data'],
                                        email=rsp['email'], username=rsp['username'],
-                                       admin=rsp2['data'] if rsp2['data'] is not None else 0)
+                                       admin=rsp2['data'])
             return render_template("message.html", message=rsp['data'],
                                    email=None, username=None, admin=0)
 
 
 @app.route('/logout/')
-async def delete_visits():
+async def logout():
     session.pop('email', None)
     session.pop('username', None)
     return redirect(url_for('home'))
@@ -146,7 +148,7 @@ async def create_post():
             rsp = eval(await rsp.text())
             return render_template("createpost.html", email=session.get('email'),
                                    username=session.get('username'),
-                                   admin=rsp['data'] if rsp['data'] is not None else 0
+                                   admin=rsp['data']
                                    )
 
 
@@ -172,8 +174,9 @@ async def create_post_postr():
             rsp, rsp2 = eval(await rsp.text()), eval(await rsp2.text())
             if rsp and 'data' in rsp and session.get('email') and session.get('username'):
                 return render_template("message.html", message=rsp['data'],
-                                       email=session['email'], username=session['username'],
-                                       admin=rsp2['data'] if rsp2['data'] is not None else 0)
+                                       email=session.get('email'),
+                                       username=session.get('username'),
+                                       admin=rsp2['data'])
     return render_template("message.html", message=rsp['data'],
                            email=None, username=None, admin=0)
 
@@ -196,7 +199,7 @@ async def search():
                                    posts=rsp,
                                    email=session.get('email'),
                                    username=session.get('username'),
-                                   admin=rsp2['data'] if rsp2['data'] is not None else 0)
+                                   admin=rsp2['data'])
 
 
 @app.route('/adminpanel/', methods=['GET'])
@@ -211,7 +214,79 @@ async def adminpanel():
             rsp = eval(await rsp.text())
             return render_template('adminpanel.html', email=session.get('email'),
                                    username=session.get('username'),
-                                   admin=rsp['data'] if rsp['data'] is not None else 0)
+                                   admin=rsp['data'])
+
+
+@app.route('/adminpanel/posts/', methods=['GET', 'POST'])
+async def adminpanel_posts():
+    async with aiohttp.ClientSession(serverURL) as s:
+        async with s.get("/", json=({
+            'operation_key': generate_password_hash(o_key),
+        })) as rsp, s.get("/login/checkstatus/", json=({
+            'operation_key': generate_password_hash(o_key),
+            'user': {
+                'email': session.get('email') if session.get('email') is not None else "_"
+            }
+        })) as rsp2, s.get("/adminpanel/users/allusernames/", json=({
+            'operation_key': generate_password_hash(o_key)
+        })) as rsp3:
+            rsp, rsp2, rsp3 = eval(await rsp.text()), eval(await rsp2.text()), eval(await rsp3.text())
+            return render_template('adminpanel_post.html', page=request.args.get('page', 1, type=int),
+                                   posts=rsp,
+                                   email=session.get('email'),
+                                   username=session.get('username'),
+                                   admin=rsp2['data'],
+                                   usernames=rsp3
+                                   )
+
+
+@app.route('/adminpanel/users/', methods=['GET', 'POST'])
+async def adminpanel_users():
+    async with aiohttp.ClientSession(serverURL) as s:
+        async with s.get("/adminpanel/users/", json=({
+            'operation_key': generate_password_hash(o_key),
+        })) as rsp, s.get("/login/checkstatus/", json=({
+            'operation_key': generate_password_hash(o_key),
+            'user': {
+                'email': session.get('email') if session.get('email') is not None else "_"
+            }
+        })) as rsp2:
+            rsp, rsp2 = eval(await rsp.text()), eval(await rsp2.text())
+            return render_template('adminpanel_user.html',
+                                   users=rsp,
+                                   email=session.get('email'),
+                                   username=session.get('username'),
+                                   admin=rsp2['data']
+                                   )
+
+
+@app.route('/adminpanel/<string:operation>/<int:op_id>/', methods=['GET', 'POST'])
+async def adminpanel_operation(operation, op_id):
+    async with aiohttp.ClientSession(serverURL) as s:
+        async with s.get("/login/checkstatus/", json=({
+            'operation_key': generate_password_hash(o_key),
+            'user': {
+                'email': session.get('email') if session.get('email') is not None else "_"
+            }
+        })) as rsp:
+            rsp = eval(await rsp.text())
+            if rsp['data'] == 1:
+                async with s.post("/adminpanel/operation/", json=({
+                    'operation_key': generate_password_hash(o_key),
+                    'operation': operation,
+                    'id': op_id,
+                    'text': request.form.get('input')
+                })):
+                    pass
+                async with s.post("/finduser/", json=({
+                    'operation_key': generate_password_hash(o_key),
+                    'email': session.get('email'),
+                    'username': session.get('username')
+                })) as rsp3:
+                    rsp3 = eval(await rsp3.text())
+                    if rsp3['data'] == 0:
+                        return redirect(url_for('logout'))
+            return redirect(url_for('adminpanel'))
 
 
 if __name__ == '__main__':
